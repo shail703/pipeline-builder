@@ -1,0 +1,85 @@
+:root {
+  /* Color: neutrals */
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f8fa;
+  --color-border: #e2e5ec;
+  --color-border-strong: #d1d5e0;
+
+  /* Color: text */
+  --color-text-primary: #1c2536;
+  --color-text-secondary: #5a6478;
+  --color-text-muted: #8a92a6;
+
+  /* Color: brand / accent */
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f52d4;
+  --color-accent-soft: #eef0ff;
+
+  /* Color: semantic */
+  --color-success: #16a34a;
+  --color-success-soft: #e9f9ee;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fdecec;
+
+  /* Canvas grid dots (ReactFlow Background). Consumed via JS, not CSS,
+     so it stays in sync with the theme through the useThemeVar hook. */
+  --color-grid: #c9cdd8;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 15px;
+  --font-size-xl: 18px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Spacing (8px rhythm) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 10px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 10px 24px rgba(16, 24, 40, 0.12);
+
+  /* Motion */
+  --transition-fast: 120ms ease;
+  --transition-medium: 200ms ease;
+
+  /* Layout */
+  --toolbar-height: 72px;
+  --submit-bar-height: 64px;
+}
+
+/* Dark-mode tokens. Wired to a toggle via the ThemeToggle component,
+   which sets data-theme="dark" on <html>. */
+[data-theme='dark'] {
+  --color-bg: #11141c;
+  --color-surface: #1a1f2b;
+  --color-surface-alt: #20263333;
+  --color-border: #2a3142;
+  --color-border-strong: #394257;
+
+  --color-text-primary: #f1f3f8;
+  --color-text-secondary: #b3bac9;
+  --color-text-muted: #7c8499;
+
+  --color-accent-soft: #262a4a;
+
+  /* Dimmer grid so dots read as a subtle texture, not bright specks. */
+  --color-grid: #2a3142;
+}

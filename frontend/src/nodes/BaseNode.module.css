@@ -1,0 +1,69 @@
+/* BaseNode.module.css
+   Single source of truth for node appearance, built on design tokens.
+   Change a token in tokens.css and every node updates automatically. */
+
+.node {
+  min-width: 220px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  overflow: visible;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.node:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-strong);
+}
+
+.header {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+}
+
+.body {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.fieldInput {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-md);
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  transition: border-color var(--transition-fast);
+}
+
+.fieldInput:hover {
+  border-color: var(--color-border-strong);
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}

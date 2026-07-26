@@ -1,0 +1,32 @@
+/* textNode.module.css
+   Text-node-specific styling. The container/header/body classes come
+   from BaseNode.module.css; this file only adds what's unique to the
+   resizable textarea and the variable hint. All values reference the
+   shared design tokens so this node stays consistent with the rest. */
+
+.textNode {
+  /* Smooth the width change as the longest line grows. Short enough that
+     edges/handles track without visible lag. Remove this line if you'd
+     prefer the node to snap to its new width instantly. */
+  transition: width var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  /* Height is controlled in JS (scrollHeight). Disable manual resize and
+     hide the scrollbar so the measurement stays clean. */
+  resize: none;
+  overflow: hidden;
+  min-height: 34px;
+  line-height: 1.5;
+  font-family: var(--font-sans);
+}
+
+.varHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  word-break: break-word;
+}

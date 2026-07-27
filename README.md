@@ -8,6 +8,16 @@ Built with **React + ReactFlow** on the frontend and **FastAPI** on the backend.
 
 ---
 
+## Live Demo
+
+- **Frontend:** <https://pipeline-builder-seven.vercel.app/>
+- **Backend:** <https://pipeline-builder-1nr6.onrender.com/> (API docs at [`/docs`](https://pipeline-builder-1nr6.onrender.com/docs))
+
+> The backend is hosted on Render's free tier and spins down when idle — the first
+> request after a period of inactivity can take up to a minute to wake it up.
+
+---
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -296,16 +306,26 @@ Validates a pipeline graph.
 **Try it manually**
 
 ```bash
+# Local
 curl -X POST http://localhost:8000/pipelines/parse \
+  -H "Content-Type: application/json" \
+  -d '{"nodes":[{"id":"a"},{"id":"b"}],"edges":[{"source":"a","target":"b"}]}'
+
+# Deployed
+curl -X POST https://pipeline-builder-1nr6.onrender.com/pipelines/parse \
   -H "Content-Type: application/json" \
   -d '{"nodes":[{"id":"a"},{"id":"b"}],"edges":[{"source":"a","target":"b"}]}'
 ```
 
-Interactive docs are served at <http://localhost:8000/docs> while the backend runs.
+Interactive docs are served at <http://localhost:8000/docs> while the backend runs
+locally, or at <https://pipeline-builder-1nr6.onrender.com/docs> for the deployed
+instance.
 
-**CORS:** the backend allows only `http://localhost:3000` and `http://127.0.0.1:3000`.
-Serving the frontend from a different origin requires adding it to `allow_origins` in
-`main.py`.
+**CORS:** the backend allows `http://localhost:3000` and `http://127.0.0.1:3000` for
+local development, plus the deployed frontend origin
+(<https://pipeline-builder-seven.vercel.app>) and any `https://pipeline-builder*.vercel.app`
+preview URL via a regex match. Serving the frontend from a different origin requires
+adding it via the `FRONTEND_ORIGIN` environment variable or `allow_origins` in `main.py`.
 
 ---
 

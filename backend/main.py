@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 from collections import defaultdict, deque
 
@@ -7,16 +8,34 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# Local development origins are always permitted.
+allowed_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# The deployed frontend origin is supplied by the host environment, e.g.
+# FRONTEND_ORIGIN=https://pipeline-builder.vercel.app (no trailing slash).
+frontend_origin = os.environ.get("FRONTEND_ORIGIN")
+if frontend_origin:
+    allowed_origins.append(frontend_origin)
+
+# Vercel gives every branch and pull request its own preview URL, such as
+# https://pipeline-builder-a1b2c3-user.vercel.app. An exact-match list can
+# never cover those, so match them by pattern instead.
+#
+# Note: allow_origins=["*"] is NOT a valid shortcut here — browsers reject a
+# wildcard origin whenever allow_credentials is True.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"https://pipeline-builder.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 class NodeModel(BaseModel):
     id: str
     type: Optional[str] = None
@@ -68,6 +87,13 @@ def is_dag(nodes: List[NodeModel], edges: List[EdgeModel]) -> bool:
                 queue.append(neighbor)
 
     return visited_count == len(node_ids)
+
+
+@app.get("/")
+def health():
+    """Liveness probe. Also used to warm the container on free hosting tiers,
+    which sleep after a period of inactivity."""
+    return {"status": "ok"}
 
 
 @app.post("/pipelines/parse")

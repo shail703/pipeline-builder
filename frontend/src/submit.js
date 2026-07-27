@@ -1,7 +1,14 @@
 import { useStore } from './store';
 import styles from './submit.module.css';
 
-const PARSE_URL = 'http://localhost:8000/pipelines/parse';
+// Set REACT_APP_API_URL in the hosting provider's environment variables
+// (e.g. https://pipeline-builder.onrender.com — no trailing slash).
+// Create React App inlines this at BUILD time, not runtime, so changing it
+// requires a redeploy. The fallback keeps local development working.
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const PARSE_URL = `${API_BASE}/pipelines/parse`;
+
+const isLocal = API_BASE.includes('localhost') || API_BASE.includes('127.0.0.1');
 
 export const SubmitButton = () => {
 
@@ -42,8 +49,12 @@ export const SubmitButton = () => {
             alert(
                 'Could not reach the backend.\n\n' +
                 `${error.message}\n\n` +
-                'Make sure the server is running:\n' +
-                'cd backend && uvicorn main:app --reload'
+                (isLocal
+                    ? 'Make sure the server is running:\n' +
+                      'cd backend && uvicorn main:app --reload'
+                    : 'The API may still be waking up — free hosting tiers sleep\n' +
+                      'when idle and can take up to a minute to start.\n' +
+                      'Wait a moment and try again.')
             );
         }
     };

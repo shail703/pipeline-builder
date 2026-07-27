@@ -94,7 +94,9 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance]
+        // getNodeID and addNode are Zustand actions with stable identities,
+        // so listing them here does not cause onDrop to be recreated.
+        [reactFlowInstance, getNodeID, addNode]
     );
 
     const onDragOver = useCallback((event) => {
